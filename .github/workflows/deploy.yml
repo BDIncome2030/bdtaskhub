@@ -1,0 +1,16 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: AkaciaNL/basicdeploy-action@v1
+        with:
+          api-key: ${{ secrets.BASICDEPLOY_API_KEY }}
