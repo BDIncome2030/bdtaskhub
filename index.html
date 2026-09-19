@@ -1,95 +1,475 @@
-<!doctype html>
+   <!doctype html>
 <html lang="bn">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>BD Task Hub — বৈধ টাস্ক ও রিওয়ার্ড প্ল্যাটফর্ম</title>
-  <meta name="description" content="স্বচ্ছ নিয়মে টাস্ক সম্পন্ন করে রিওয়ার্ড সংগ্রহের একটি ডেমো প্ল্যাটফর্ম।">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>BD Task Hub — Task & Reward Platform</title>
+
+  <meta
+    name="description"
+    content="BD Task Hub একটি task submission ও reward management platform।"
+  >
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
 <header class="topbar">
   <div class="brand">💼 BD Task Hub</div>
+
   <nav>
     <a href="#dashboard">Dashboard</a>
     <a href="#tasks">Tasks</a>
     <a href="#withdraw">Withdraw</a>
     <a href="#rules">Rules</a>
+    <button id="logoutBtn" class="nav-btn" type="button" hidden>
+      Logout
+    </button>
   </nav>
 </header>
 
+
 <main class="container">
-  <section class="hero">
-    <div>
-      <span class="badge">স্বচ্ছ ও দায়িত্বশীল রিওয়ার্ড প্ল্যাটফর্ম</span>
-      <h1>টাস্ক করুন, নিয়ম মেনে রিওয়ার্ড পান</h1>
-      <p>এখানে কোনো নিশ্চিত আয় বা দ্রুত ধনী হওয়ার প্রতিশ্রুতি নেই। প্রতিটি রিওয়ার্ড বাস্তবভাবে সম্পন্ন ও যাচাই করা কাজের জন্য নির্ধারিত হবে।</p>
-      <a class="btn" href="#tasks">টাস্ক দেখুন</a>
+
+  <!-- =========================
+       AUTH SECTION
+  ========================== -->
+
+  <section id="authSection" class="card auth-card">
+
+    <div class="auth-tabs">
+      <button id="loginTab" class="auth-tab active" type="button">
+        Login
+      </button>
+
+      <button id="registerTab" class="auth-tab" type="button">
+        Register
+      </button>
     </div>
-  </section>
 
-  <section id="dashboard" class="grid stats">
-    <article class="card"><span>বর্তমান ব্যালেন্স</span><strong id="balance">৳0.00</strong></article>
-    <article class="card"><span>সম্পন্ন টাস্ক</span><strong id="completed">0</strong></article>
-    <article class="card"><span>রেফারেল কোড</span><strong id="refCode">BD-USER</strong></article>
-  </section>
 
-  <section id="tasks" class="card section">
-    <h2>📋 Available Tasks</h2>
-    <p class="muted">শুধু বৈধ ও স্পষ্টভাবে বর্ণিত কাজ যোগ করুন। প্রতিটি কাজের শর্ত আগে পড়ে নিন।</p>
-    <div id="taskList"></div>
-  </section>
+    <!-- LOGIN -->
 
-  <section id="withdraw" class="card section">
-    <h2>💸 Withdraw Request</h2>
-    <p class="muted">উত্তোলনের আগে ন্যূনতম ব্যালেন্স, পরিচয় যাচাই এবং পেমেন্ট নীতিমালা প্রযোজ্য হতে পারে।</p>
-    <form id="withdrawForm">
-      <label>টাকার পরিমাণ
-        <input id="amount" type="number" min="50" step="1" placeholder="যেমন: 100" required>
+    <form id="loginForm">
+
+      <h2>🔐 Login</h2>
+
+      <p class="muted">
+        আপনার account-এ login করুন।
+      </p>
+
+      <label>
+        Email
+        <input
+          id="loginEmail"
+          type="email"
+          autocomplete="email"
+          placeholder="আপনার email"
+          required
+        >
       </label>
-      <label>পেমেন্ট মাধ্যম
-        <select id="method" required>
-          <option value="">নির্বাচন করুন</option>
-          <option>bKash</option>
-          <option>Nagad</option>
-          <option>Bank Transfer</option>
-        </select>
+
+      <label>
+        Password
+        <input
+          id="loginPassword"
+          type="password"
+          autocomplete="current-password"
+          placeholder="Password"
+          required
+        >
       </label>
-      <label>পেমেন্ট নম্বর / ব্যাংক তথ্য
-        <input id="payment" type="text" placeholder="শুধু নিজের বৈধ তথ্য দিন" required>
-      </label>
-      <button class="btn" type="submit">Withdraw Request</button>
-      <p id="withdrawMsg" class="message"></p>
+
+      <button class="btn" type="submit">
+        Login
+      </button>
+
+      <p id="loginMsg" class="message"></p>
+
     </form>
+
+
+    <!-- REGISTER -->
+
+    <form id="registerForm" hidden>
+
+      <h2>📝 Create Account</h2>
+
+      <p class="muted">
+        একটি বৈধ account তৈরি করুন।
+      </p>
+
+      <label>
+        নাম
+        <input
+          id="registerName"
+          type="text"
+          autocomplete="name"
+          minlength="2"
+          maxlength="80"
+          placeholder="আপনার নাম"
+          required
+        >
+      </label>
+
+      <label>
+        Email
+        <input
+          id="registerEmail"
+          type="email"
+          autocomplete="email"
+          placeholder="আপনার email"
+          required
+        >
+      </label>
+
+      <label>
+        Password
+        <input
+          id="registerPassword"
+          type="password"
+          autocomplete="new-password"
+          minlength="8"
+          placeholder="কমপক্ষে ৮ অক্ষর"
+          required
+        >
+      </label>
+
+      <button class="btn" type="submit">
+        Register
+      </button>
+
+      <p id="registerMsg" class="message"></p>
+
+    </form>
+
   </section>
 
-  <section id="referral" class="card section">
-    <h2>👥 Referral</h2>
-    <p>আপনার কোড: <strong id="refCode2">BD-USER</strong></p>
-    <button class="btn secondary" id="copyRef">কোড কপি করুন</button>
-    <p class="muted small">রেফারেল বোনাস থাকলে তার হার, শর্ত ও সীমা আগে থেকেই প্রকাশ করতে হবে।</p>
+
+  <!-- =========================
+       APP SECTION
+  ========================== -->
+
+  <section id="appSection" hidden>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div>
+
+        <span class="badge">
+          স্বচ্ছ ও দায়িত্বশীল Task Platform
+        </span>
+
+        <h1>
+          টাস্ক করুন, যাচাইয়ের পর রিওয়ার্ড পান
+        </h1>
+
+        <p>
+          প্রতিটি task-এর শর্ত আগে পড়ে নিন এবং কাজ সম্পন্ন করার
+          পর প্রয়োজনীয় proof জমা দিন। Reward admin verification-এর
+          পর account balance-এ যোগ হবে।
+        </p>
+
+        <a class="btn" href="#tasks">
+          Available Tasks
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboard" class="grid stats">
+
+      <article class="card">
+
+        <span>বর্তমান ব্যালেন্স</span>
+
+        <strong id="balance">
+          ৳0.00
+        </strong>
+
+      </article>
+
+
+      <article class="card">
+
+        <span>সম্পন্ন / জমা দেওয়া টাস্ক</span>
+
+        <strong id="completed">
+          0
+        </strong>
+
+      </article>
+
+
+      <article class="card">
+
+        <span>Referral Code</span>
+
+        <strong id="refCode">
+          —
+        </strong>
+
+      </article>
+
+    </section>
+
+
+    <!-- USER INFO -->
+
+    <section class="card section">
+
+      <h2>👤 Account</h2>
+
+      <p>
+        নাম:
+        <strong id="userName">—</strong>
+      </p>
+
+      <p>
+        Email:
+        <strong id="userEmail">—</strong>
+      </p>
+
+      <p>
+        Account type:
+        <strong id="userRole">User</strong>
+      </p>
+
+    </section>
+
+
+    <!-- TASKS -->
+
+    <section id="tasks" class="card section">
+
+      <h2>📋 Available Tasks</h2>
+
+      <p class="muted">
+        শুধুমাত্র বৈধ এবং পরিষ্কারভাবে বর্ণিত কাজ সম্পন্ন করুন।
+        কাজের শর্ত অনুযায়ী proof জমা দিতে হবে।
+      </p>
+
+      <div id="taskList">
+
+        <p class="muted">
+          Tasks loading...
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- WITHDRAW -->
+
+    <section id="withdraw" class="card section">
+
+      <h2>💸 Withdraw Request</h2>
+
+      <p class="muted">
+        Withdrawal request server-side যাচাই করা হবে।
+        Minimum withdrawal বর্তমানে ৳50।
+      </p>
+
+
+      <form id="withdrawForm">
+
+        <label>
+          টাকার পরিমাণ
+
+          <input
+            id="amount"
+            type="number"
+            min="50"
+            step="1"
+            placeholder="যেমন: 100"
+            required
+          >
+
+        </label>
+
+
+        <label>
+          Payment Method
+
+          <select id="method" required>
+
+            <option value="">
+              নির্বাচন করুন
+            </option>
+
+            <option value="bKash">
+              bKash
+            </option>
+
+            <option value="Nagad">
+              Nagad
+            </option>
+
+            <option value="Bank Transfer">
+              Bank Transfer
+            </option>
+
+          </select>
+
+        </label>
+
+
+        <label>
+          Payment Number / Bank Information
+
+          <input
+            id="payment"
+            type="text"
+            maxlength="200"
+            placeholder="শুধু নিজের বৈধ তথ্য দিন"
+            required
+          >
+
+        </label>
+
+
+        <button class="btn" type="submit">
+          Submit Withdrawal Request
+        </button>
+
+        <p id="withdrawMsg" class="message"></p>
+
+      </form>
+
+
+      <div class="withdraw-history">
+
+        <h3>Withdrawal History</h3>
+
+        <div id="withdrawalList">
+
+          <p class="muted">
+            কোনো withdrawal request নেই।
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- REFERRAL -->
+
+    <section id="referral" class="card section">
+
+      <h2>👥 Referral</h2>
+
+      <p>
+        আপনার Referral Code:
+        <strong id="refCode2">—</strong>
+      </p>
+
+      <button
+        class="btn secondary"
+        id="copyRef"
+        type="button"
+      >
+        Code Copy
+      </button>
+
+      <p class="muted small">
+        Referral bonus থাকলে তার হার, যোগ্যতা ও সীমা
+        পরিষ্কারভাবে প্রকাশ করা হবে।
+      </p>
+
+    </section>
+
+
+    <!-- RULES -->
+
+    <section id="rules" class="card section">
+
+      <h2>📜 Rules & Transparency</h2>
+
+      <ul>
+
+        <li>
+          ভুয়া proof, bot, spam বা প্রতারণামূলক activity নিষিদ্ধ।
+        </li>
+
+        <li>
+          প্রতিটি task-এর শর্ত ও reward আগে থেকে জানানো হবে।
+        </li>
+
+        <li>
+          Task reward admin verification-এর পর দেওয়া হবে।
+        </li>
+
+        <li>
+          Reward পাওয়ার জন্য ব্যবহারকারীর কাছ থেকে
+          বাধ্যতামূলক deposit নেওয়া যাবে না।
+        </li>
+
+        <li>
+          Withdrawal request review ও payment processing-এর
+          নিয়ম পরিষ্কারভাবে প্রকাশ করতে হবে।
+        </li>
+
+        <li>
+          অন্য ব্যক্তির পরিচয় বা payment information ব্যবহার করা নিষিদ্ধ।
+        </li>
+
+      </ul>
+
+    </section>
+
+
+    <!-- PRIVACY -->
+
+    <section class="card section">
+
+      <h2>🔐 Privacy & Security</h2>
+
+      <p class="muted">
+        Account এবং task-related data server-side database-এ
+        পরিচালিত হবে। Password plain text হিসেবে সংরক্ষণ করা হবে না।
+        Production deployment-এর ক্ষেত্রে HTTPS এবং নিরাপদ
+        environment configuration ব্যবহার করতে হবে।
+      </p>
+
+    </section>
+
+
+    <!-- GENERAL MESSAGE -->
+
+    <div id="globalMsg" class="message"></div>
+
   </section>
 
-  <section id="rules" class="card section">
-    <h2>📜 Rules & Transparency</h2>
-    <ul>
-      <li>ভুয়া ক্লিক, বট, স্প্যাম, প্রতারণা বা অন্যের পরিচয় ব্যবহার নিষিদ্ধ।</li>
-      <li>প্রতিটি টাস্কের শর্ত ও রিওয়ার্ড পরিবর্তন হলে তা প্রকাশ করতে হবে।</li>
-      <li>কোনো সদস্যের কাছ থেকে রিওয়ার্ড পাওয়ার জন্য বাধ্যতামূলক টাকা জমা নেওয়া যাবে না—যদি আলাদা কোনো বৈধ সেবা থাকে, তার মূল্য ও শর্ত স্পষ্টভাবে দেখাতে হবে।</li>
-      <li>উত্তোলনের অনুরোধ যাচাই করে বাস্তব পেমেন্ট প্রসেসর/ব্যাংকের মাধ্যমে পরিশোধ করতে হবে।</li>
-      <li>এই GitHub Pages সংস্করণটি নিরাপদ সার্ভার/ডাটাবেস ছাড়া একটি frontend demo; বাস্তব ব্যবহারকারীর টাকা বা সংবেদনশীল তথ্য এখানে রাখা উচিত নয়।</li>
-    </ul>
-  </section>
-
-  <section class="card section">
-    <h2>🔐 Privacy</h2>
-    <p>এই ডেমো ব্রাউজারের localStorage-এ সীমিত ডেমো ডেটা রাখে। বাস্তব সাইটে HTTPS, server-side authentication, database security, audit logs এবং উপযুক্ত privacy policy প্রয়োজন।</p>
-  </section>
 </main>
 
+
 <footer>
-  <p>© 2026 BD Task Hub · Demo template · Terms · Privacy · Contact</p>
+
+  <p>
+    © 2026 BD Task Hub ·
+    Task & Reward Platform
+  </p>
+
+  <p>
+    Terms · Privacy · Contact
+  </p>
+
 </footer>
+
+
 <script src="app.js"></script>
+
 </body>
 </html>
