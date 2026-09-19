@@ -9,7 +9,7 @@ const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
 
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 8080;
 const SESSION_SECRET = process.env.SESSION_SECRET || "CHANGE_THIS_SECRET_IN_PRODUCTION";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@example.com";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "ChangeMe123!";
