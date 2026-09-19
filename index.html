@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BD Task Hub — বৈধ টাস্ক ও রিওয়ার্ড প্ল্যাটফর্ম</title>
+  <meta name="description" content="স্বচ্ছ নিয়মে টাস্ক সম্পন্ন করে রিওয়ার্ড সংগ্রহের একটি ডেমো প্ল্যাটফর্ম।">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">💼 BD Task Hub</div>
+  <nav>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#tasks">Tasks</a>
+    <a href="#withdraw">Withdraw</a>
+    <a href="#rules">Rules</a>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div>
+      <span class="badge">স্বচ্ছ ও দায়িত্বশীল রিওয়ার্ড প্ল্যাটফর্ম</span>
+      <h1>টাস্ক করুন, নিয়ম মেনে রিওয়ার্ড পান</h1>
+      <p>এখানে কোনো নিশ্চিত আয় বা দ্রুত ধনী হওয়ার প্রতিশ্রুতি নেই। প্রতিটি রিওয়ার্ড বাস্তবভাবে সম্পন্ন ও যাচাই করা কাজের জন্য নির্ধারিত হবে।</p>
+      <a class="btn" href="#tasks">টাস্ক দেখুন</a>
+    </div>
+  </section>
+
+  <section id="dashboard" class="grid stats">
+    <article class="card"><span>বর্তমান ব্যালেন্স</span><strong id="balance">৳0.00</strong></article>
+    <article class="card"><span>সম্পন্ন টাস্ক</span><strong id="completed">0</strong></article>
+    <article class="card"><span>রেফারেল কোড</span><strong id="refCode">BD-USER</strong></article>
+  </section>
+
+  <section id="tasks" class="card section">
+    <h2>📋 Available Tasks</h2>
+    <p class="muted">শুধু বৈধ ও স্পষ্টভাবে বর্ণিত কাজ যোগ করুন। প্রতিটি কাজের শর্ত আগে পড়ে নিন।</p>
+    <div id="taskList"></div>
+  </section>
+
+  <section id="withdraw" class="card section">
+    <h2>💸 Withdraw Request</h2>
+    <p class="muted">উত্তোলনের আগে ন্যূনতম ব্যালেন্স, পরিচয় যাচাই এবং পেমেন্ট নীতিমালা প্রযোজ্য হতে পারে।</p>
+    <form id="withdrawForm">
+      <label>টাকার পরিমাণ
+        <input id="amount" type="number" min="50" step="1" placeholder="যেমন: 100" required>
+      </label>
+      <label>পেমেন্ট মাধ্যম
+        <select id="method" required>
+          <option value="">নির্বাচন করুন</option>
+          <option>bKash</option>
+          <option>Nagad</option>
+          <option>Bank Transfer</option>
+        </select>
+      </label>
+      <label>পেমেন্ট নম্বর / ব্যাংক তথ্য
+        <input id="payment" type="text" placeholder="শুধু নিজের বৈধ তথ্য দিন" required>
+      </label>
+      <button class="btn" type="submit">Withdraw Request</button>
+      <p id="withdrawMsg" class="message"></p>
+    </form>
+  </section>
+
+  <section id="referral" class="card section">
+    <h2>👥 Referral</h2>
+    <p>আপনার কোড: <strong id="refCode2">BD-USER</strong></p>
+    <button class="btn secondary" id="copyRef">কোড কপি করুন</button>
+    <p class="muted small">রেফারেল বোনাস থাকলে তার হার, শর্ত ও সীমা আগে থেকেই প্রকাশ করতে হবে।</p>
+  </section>
+
+  <section id="rules" class="card section">
+    <h2>📜 Rules & Transparency</h2>
+    <ul>
+      <li>ভুয়া ক্লিক, বট, স্প্যাম, প্রতারণা বা অন্যের পরিচয় ব্যবহার নিষিদ্ধ।</li>
+      <li>প্রতিটি টাস্কের শর্ত ও রিওয়ার্ড পরিবর্তন হলে তা প্রকাশ করতে হবে।</li>
+      <li>কোনো সদস্যের কাছ থেকে রিওয়ার্ড পাওয়ার জন্য বাধ্যতামূলক টাকা জমা নেওয়া যাবে না—যদি আলাদা কোনো বৈধ সেবা থাকে, তার মূল্য ও শর্ত স্পষ্টভাবে দেখাতে হবে।</li>
+      <li>উত্তোলনের অনুরোধ যাচাই করে বাস্তব পেমেন্ট প্রসেসর/ব্যাংকের মাধ্যমে পরিশোধ করতে হবে।</li>
+      <li>এই GitHub Pages সংস্করণটি নিরাপদ সার্ভার/ডাটাবেস ছাড়া একটি frontend demo; বাস্তব ব্যবহারকারীর টাকা বা সংবেদনশীল তথ্য এখানে রাখা উচিত নয়।</li>
+    </ul>
+  </section>
+
+  <section class="card section">
+    <h2>🔐 Privacy</h2>
+    <p>এই ডেমো ব্রাউজারের localStorage-এ সীমিত ডেমো ডেটা রাখে। বাস্তব সাইটে HTTPS, server-side authentication, database security, audit logs এবং উপযুক্ত privacy policy প্রয়োজন।</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 BD Task Hub · Demo template · Terms · Privacy · Contact</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
